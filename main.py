@@ -52,17 +52,20 @@ def submit_form():
             print("Error saving signature image:", e)
 
     # Append row to Google Sheet
-    sheet.append_row([
-        name,
-        employee_code,
-        return_ticket_pnr,
-        airport_name,
-        flight_timings,
-        goodies_received,
-        "Uploaded"
-    ])
-
-    return jsonify({"message": "Form data saved successfully"}), 200
+    if employee_code not in sheet.col_values(2) :
+        sheet.append_row([
+            name,
+            employee_code,
+            return_ticket_pnr,
+            airport_name,
+            flight_timings,
+            goodies_received,
+            "Uploaded"
+        ])
+    
+        return jsonify({"message": "Form data saved successfully"}), 200
+    return jsonify({"message": "Data already exist"}), 200
+    
 
 if __name__ == "__main__":
     app.run(debug=True)
