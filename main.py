@@ -64,8 +64,9 @@ def submit_form():
         ])
     
         return jsonify({"message": "Form data saved successfully"}), 200
-    return jsonify({"message": "Data already exist"}), 200
-    
+    else:
+        return jsonify({"message": "Data already exists for this employee code."}), 200
+   
 
 if __name__ == "__main__":
     app.run(debug=True)
